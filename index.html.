@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Charity Connect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Charity Connect</h1>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="donate.html">Donate</a>
+        <a href="request.html">Request</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h2>Give What You Don’t Need. Help Someone Who Does.</h2>
+    <p>Connect your unused items with people who need them.</p>
+
+    <div class="buttons">
+        <a class="btn" href="donate.html">Donate Items</a>
+        <a class="btn" href="request.html">Request Items</a>
+    </div>
+</section>
+
+</body>
+</html>
+donate.html
+(Donation form)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Donate Items</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Donate Items</h1>
+
+<form id="donateForm">
+    <label>Your Name:</label>
+    <input type="text" required>
+
+    <label>Your Email:</label>
+    <input type="email" required>
+
+    <label>Item Name:</label>
+    <input type="text" required>
+
+    <label>Description:</label>
+    <textarea required></textarea>
+
+    <label>Upload Photo:</label>
+    <input type="file">
+
+    <button type="submit">Send Donation</button>
+</form>
+
+<script>
+document.getElementById("donateForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("Thank you! Your donation has been submitted.");
+});
+</script>
+
+</body>
+</html>
+request.html
+(Request form)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Request Items</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h1>Request an Item</h1>
+
+<form id="requestForm">
+    <label>Your Name:</label>
+    <input type="text" required>
+
+    <label>Your Email:</label>
+    <input type="email" required>
+
+    <label>What item do you need?</label>
+    <textarea required></textarea>
+
+    <button type="submit">Submit Request</button>
+</form>
+
+<script>
+document.getElementById("requestForm").addEventListener("submit", function(e){
+    e.preventDefault();
+    alert("Your request has been submitted.");
+});
+</script>
+
+</body>
+</html>
