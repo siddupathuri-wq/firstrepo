@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Charitable Initiatives Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1> The Global Compassion Hub</h1>
+        <p>Discover, Engage, and Support Worthy Causes Worldwide.</p>
+    </header>
+
+    <main>
+        <section id="discovery">
+            <h2> Discover Initiatives</h2>
+            <p>Explore charitable organizations supporting various global needs, from education to environmental conservation.</p>
+            
+            <div id="initiatives-list">
+                </div>
+        </section>
+
+        <section id="engagement">
+            <h2> Get Involved</h2>
+            <p>Every action makes a difference. Find ways to volunteer, donate, or spread the word.</p>
+            <div class="engagement-options">
+                <div class="option-card">
+                    <h3>Volunteer</h3>
+                    <p>Dedicate your time and skills to an initiative near you or remotely.</p>
+                    <a href="#" class="btn">Find Opportunities</a>
+                </div>
+                <div class="option-card">
+                    <h3>Donate</h3>
+                    <p>Provide financial support securely and directly to the causes you believe in.</p>
+                    <a href="#" class="btn">Give Now</a>
+                </div>
+                <div class="option-card">
+                    <h3>Share</h3>
+                    <p>Invite your friends and network to engage with these worthy missions.</p>
+                    <a href="#" class="btn">Share Hub</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Global Compassion Hub. Built for Education.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
