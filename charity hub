@@ -1,0 +1,1014 @@
+html_content = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Charity Connector Hub</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+        :root {
+            --bg: #f5f7fb;
+            --card-bg: #ffffff;
+            --primary: #3b6cf6;
+            --primary-dark: #2746a8;
+            --accent: #ffb347;
+            --text-main: #1c2230;
+            --text-muted: #6a7284;
+            --border-subtle: #dde2f0;
+            --danger: #e63946;
+            --radius-lg: 18px;
+            --radius-md: 12px;
+            --shadow-soft: 0 14px 40px rgba(9, 16, 43, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: radial-gradient(circle at top left, #eff3ff 0, #f5f7fb 40%, #fdfdfd 100%);
+            color: var(--text-main);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* Top nav */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(16px);
+            background: rgba(245, 247, 251, 0.9);
+            border-bottom: 1px solid rgba(207, 213, 233, 0.7);
+        }
+
+        .nav {
+            max-width: 1180px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.25rem;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-mark {
+            width: 34px;
+            height: 34px;
+            border-radius: 11px;
+            background: conic-gradient(from 200deg, #3b6cf6, #4cc9f0, #ffb347, #e63946, #3b6cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+        }
+
+        .logo-mark span {
+            width: 18px;
+            height: 18px;
+            border-radius: 8px;
+            background: #ffffff;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-mark span::before,
+        .logo-mark span::after {
+            content: "";
+            position: absolute;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #3b6cf6, #ffb347);
+        }
+
+        .logo-mark span::before {
+            width: 150%;
+            height: 70%;
+            top: -35%;
+            left: -25%;
+            opacity: 0.7;
+        }
+
+        .logo-mark span::after {
+            width: 100%;
+            height: 45%;
+            bottom: -20%;
+            right: -5%;
+            opacity: 0.9;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text strong {
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            font-size: 0.95rem;
+        }
+
+        .logo-text span {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a {
+            padding: 0.35rem 0.6rem;
+            border-radius: 999px;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            background: rgba(59, 108, 246, 0.06);
+            color: var(--text-main);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .btn {
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 0.45rem 1rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            transition: transform 0.1s ease, box-shadow 0.15s ease, background 0.15s ease;
+            font-weight: 600;
+            letter-spacing: 0.01em;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #3b6cf6, #2746a8);
+            color: #ffffff;
+            box-shadow: 0 9px 25px rgba(59, 108, 246, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 13px 30px rgba(59, 108, 246, 0.45);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Layout */
+        main {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 1.5rem 1.25rem 3rem;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.3fr) minmax(0, 1.1fr);
+            gap: 2.25rem;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.1rem 0.55rem 0.15rem;
+            border-radius: 999px;
+            background: rgba(255, 179, 71, 0.14);
+            color: #7a4a00;
+            font-size: 0.72rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .eyebrow-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, #fff7e6 0, #ffb347 40%, #e06f00 100%);
+        }
+
+        h1 {
+            font-size: clamp(1.9rem, 3vw, 2.4rem);
+            line-height: 1.05;
+            margin: 0 0 0.75rem;
+            letter-spacing: -0.03em;
+        }
+
+        h1 span.accent {
+            background: linear-gradient(135deg, #3b6cf6, #4cc9f0);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-sub {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            max-width: 32rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .hero-meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .hero-meta-badge {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, #d3f9d8 0, #2ecc71 40%, #09814a 100%);
+        }
+
+        .hero-visual {
+            position: relative;
+            min-height: 260px;
+        }
+
+        .hero-card {
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius-lg);
+            background: radial-gradient(circle at top right, #4cc9f0 0, #3b6cf6 28%, #09102b 75%);
+            padding: 1.1rem 1.2rem;
+            color: #ffffff;
+            box-shadow: var(--shadow-soft);
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            width: 380px;
+            height: 380px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.11) 0, transparent 70%);
+            top: -180px;
+            right: -120px;
+            opacity: 0.9;
+        }
+
+        .hero-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .mini-tag {
+            font-size: 0.7rem;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            background: rgba(12, 19, 52, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .mini-tag-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #4cc9f0;
+        }
+
+        .hero-card-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.35rem;
+        }
+
+        .hero-card-sub {
+            font-size: 0.8rem;
+            opacity: 0.86;
+        }
+
+        .hero-avatar-row {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar-stack {
+            display: flex;
+        }
+
+        .avatar-stack span {
+            width: 24px;
+            height: 24px;
+            border-radius: 999px;
+            border: 2px solid rgba(18, 26, 64, 0.85);
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+        }
+
+        .avatar-stack span + span {
+            margin-left: -10px;
+        }
+
+        .avatar-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(12, 19, 52, 0.85);
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero-progress {
+            margin-top: 0.75rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            margin-bottom: 0.2rem;
+            opacity: 0.85;
+        }
+
+        .hero-progress-bar {
+            height: 7px;
+            border-radius: 999px;
+            background: rgba(11, 21, 62, 0.8);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-progress-fill {
+            width: 68%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #ffb347, #ff6b6b);
+            position: relative;
+        }
+
+        .hero-progress-fill::after {
+            content: "";
+            position: absolute;
+            right: -4px;
+            top: -2px;
+            width: 12px;
+            height: 12px;
+            border-radius: 999px;
+            border: 2px solid rgba(11, 21, 62, 0.9);
+            background: radial-gradient(circle at 30% 30%, #fffbea 0, #ffb347 40%, #e76f51 100%);
+            box-shadow: 0 0 0 4px rgba(255, 179, 71, 0.3);
+        }
+
+        .hero-pill-row {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            font-size: 0.7rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .pill {
+            padding: 0.18rem 0.6rem;
+            border-radius: 999px;
+            background: rgba(10, 22, 64, 0.7);
+            border: 1px solid rgba(204, 214, 255, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .pill span.dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #4cc9f0;
+        }
+
+        .pill.pill-vol {
+            background: rgba(15, 126, 88, 0.75);
+        }
+
+        .pill.pill-don {
+            background: rgba(185, 40, 65, 0.8);
+        }
+
+        /* Filters + results */
+        .grid {
+            display: grid;
+            grid-template-columns: 260px minmax(0, 1fr);
+            gap: 1.8rem;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: var(--radius-lg);
+            padding: 1rem;
+            box-shadow: 0 6px 22px rgba(9, 16, 43, 0.05);
+            border: 1px solid rgba(216, 222, 245, 0.9);
+        }
+
+        .panel h2 {
+            font-size: 0.9rem;
+            margin: 0 0 0.7rem;
+        }
+
+        .panel small {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .filter-group {
+            margin-top: 0.9rem;
+            padding-top: 0.7rem;
+            border-top: 1px dashed rgba(209, 216, 240, 0.9);
+        }
+
+        .filter-group label {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 0.35rem;
+            color: var(--text-muted);
+        }
+
+        .chip-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .chip {
+            font-size: 0.75rem;
+            padding: 0.18rem 0.55rem;
+            border-radius: 999px;
+            background: #f4f5fc;
+            border: 1px solid #dde2f0;
+            cursor: pointer;
+            color: #38405a;
+        }
+
+        .chip.chip-active {
+            background: #3b6cf6;
+            color: #ffffff;
+            border-color: #3b6cf6;
+        }
+
+        .filter-input {
+            width: 100%;
+            border-radius: 999px;
+            border: 1px solid #dde2f0;
+            padding: 0.4rem 0.7rem;
+            font-size: 0.8rem;
+            outline: none;
+        }
+
+        .filter-input:focus {
+            border-color: #3b6cf6;
+            box-shadow: 0 0 0 2px rgba(59, 108, 246, 0.22);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.6rem;
+        }
+
+        .results-header h2 {
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        .results-header span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .sort-select {
+            border-radius: 999px;
+            border: 1px solid #dde2f0;
+            padding: 0.25rem 0.6rem;
+            font-size: 0.78rem;
+            background: #ffffff;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 1rem;
+            margin-top: 0.7rem;
+        }
+
+        .charity-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(216, 222, 245, 0.9);
+            box-shadow: 0 10px 28px rgba(13, 23, 63, 0.06);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+        }
+
+        .charity-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(13, 23, 63, 0.12);
+            border-color: rgba(59, 108, 246, 0.4);
+        }
+
+        .card-image {
+            position: relative;
+            height: 120px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-image::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(6, 15, 43, 0.55), transparent 55%);
+        }
+
+        .card-badge {
+            position: absolute;
+            left: 0.75rem;
+            bottom: 0.65rem;
+            padding: 0.16rem 0.5rem;
+            font-size: 0.68rem;
+            border-radius: 999px;
+            background: rgba(9, 16, 43, 0.86);
+            color: #ffffff;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .card-badge span.dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 999px;
+            background: #4cc9f0;
+        }
+
+        .card-body {
+            padding: 0.75rem 0.8rem 0.8rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+            flex: 1;
+        }
+
+        .card-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+
+        .card-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .card-location {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .save-pill {
+            font-size: 0.7rem;
+            padding: 0.18rem 0.45rem;
+            border-radius: 999px;
+            border: 1px solid #dde2f0;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.22rem;
+            cursor: pointer;
+        }
+
+        .save-pill span.heart {
+            color: #ff6b6b;
+        }
+
+        .card-desc {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.28rem;
+            margin: 0.1rem 0 0.2rem;
+        }
+
+        .tag {
+            font-size: 0.68rem;
+            padding: 0.12rem 0.36rem;
+            border-radius: 999px;
+            background: #f4f5fc;
+            color: #444b66;
+        }
+
+        .card-cta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.4rem;
+            gap: 0.4rem;
+        }
+
+        .card-ctas {
+            display: flex;
+            gap: 0.35rem;
+            flex-wrap: wrap;
+        }
+
+        .btn-mini {
+            font-size: 0.72rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            border: 1px solid #dde2f0;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        .btn-mini.btn-main {
+            background: #3b6cf6;
+            color: #ffffff;
+            border-color: #3b6cf6;
+        }
+
+        .card-mini-stat {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-align: right;
+        }
+
+        footer {
+            margin-top: 2.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .hero-visual {
+                order: -1;
+            }
+
+            .grid {
+                grid-template-columns: minmax(0, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .nav-links {
+                display: none;
+            }
+
+            main {
+                padding-inline: 1rem;
+            }
+
+            .hero-card {
+                min-height: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="nav" aria-label="Main navigation">
+            <div class="nav-left">
+                <a href="/" class="logo-mark" aria-label="Charity Connector Hub Home">
+                    <span></span>
+                </a>
+                <div class="logo-text">
+                    <strong>Charity Connector Hub</strong>
+                    <span>Where help finds a home</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#browse">Browse</a>
+                <a href="#how">How it works</a>
+                <a href="#for-charities">For charities</a>
+            </div>
+            <div class="nav-cta">
+                <button class="btn btn-ghost" type="button">Sign in</button>
+                <button class="btn btn-primary" type="button">Join the hub</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div>
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    Live beta · 214 local charities connected
+                </div>
+                <h1 id="hero-title">
+                    Connect with <span class="accent">charities</span> that match what you care about.
+                </h1>
+                <p class="hero-sub">
+                    Discover local and global causes, see what they need right now, and support them with time,
+                    skills, or donations—all in one simple place.
+                </p>
+                <div class="hero-actions">
+                    <button class="btn btn-primary" type="button">
+                        Start matching
+                    </button>
+                    <button class="btn btn-ghost" type="button">
+                        I represent a charity
+                    </button>
+                </div>
+                <div class="hero-meta" aria-label="Impact stats">
+                    <span><span class="hero-meta-badge"></span> 4,823 hours volunteered this month</span>
+                    <span>£128,900 directed to community projects</span>
+                </div>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+                <div class="hero-card">
+                    <div class="hero-card-header">
+                        <div>
+                            <div class="mini-tag">
+                                <span class="mini-tag-dot"></span>
+                                Featured match
+                            </div>
+                            <div class="hero-card-title">FoodShare Community Kitchen</div>
+                            <div class="hero-card-sub">
+                                Help provide warm meals and food parcels to families in your area.
+                            </div>
+                        </div>
+                        <div class="hero-avatar-row">
+                            <div class="avatar-stack">
+                                <span style="background-image:url('https://images.pexels.com/photos/6646913/pexels-photo-6646913.jpeg?auto=compress&cs=tinysrgb&w=200');"></span>
+                                <span style="background-image:url('https://images.pexels.com/photos/6646901/pexels-photo-6646901.jpeg?auto=compress&cs=tinysrgb&w=200');"></span>
+                                <span style="background-image:url('https://images.pexels.com/photos/6646907/pexels-photo-6646907.jpeg?auto=compress&cs=tinysrgb&w=200');"></span>
+                                <span class="avatar-more">+12</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-progress">
+                        <div class="hero-progress-label">
+                            <span>Emergency food fund</span>
+                            <span>68% of £10,000 goal</span>
+                        </div>
+                        <div class="hero-progress-bar">
+                            <div class="hero-progress-fill"></div>
+                        </div>
+                    </div>
+
+                    <div class="hero-pill-row">
+                        <div class="pill pill-vol">
+                            <span class="dot"></span> 3 volunteer shifts this weekend
+                        </div>
+                        <div class="pill pill-don">
+                            <span class="dot"></span> £15 = 7 meals for a family
+                        </div>
+                        <div class="pill">
+                            <span class="dot"></span> Local · Food poverty · Families
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="browse" class="grid" aria-label="Browse charities">
+            <aside class="panel" aria-label="Filters">
+                <h2>Find a charity</h2>
+                <small>Filter by cause, location, or how you’d like to help.</small>
+
+                <div class="filter-group">
+                    <label for="search">Search by name or keyword</label>
+                    <input id="search" class="filter-input" type="search" placeholder="e.g. youth, climate, food" />
+                </div>
+
+                <div class="filter-group">
+                    <label>Cause area</label>
+                    <div class="chip-row">
+                        <button class="chip chip-active" type="button">All</button>
+                        <button class="chip" type="button">Community</button>
+                        <button class="chip" type="button">Youth</button>
+                        <button class="chip" type="button">Environment</button>
+                        <button class="chip" type="button">Health</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>How you want to help</label>
+                    <div class="chip-row">
+                        <button class="chip chip-active" type="button">Any</button>
+                        <button class="chip" type="button">Donate</button>
+                        <button class="chip" type="button">Volunteer</button>
+                        <button class="chip" type="button">Skills-based</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label for="location">Location</label>
+                    <input id="location" class="filter-input" type="text" placeholder="Town / postcode / online" />
+                </div>
+            </aside>
+
+            <div>
+                <div class="results-header">
+                    <div>
+                        <h2>Matches near you</h2>
+                        <span>Curated based on your interests and location.</span>
+                    </div>
+                    <div>
+                        <label for="sort-select" class="sr-only">Sort results</label>
+                        <select id="sort-select" class="sort-select" aria-label="Sort results">
+                            <option>Most urgent first</option>
+                            <option>Impact (highest)</option>
+                            <option>Newest</option>
+                            <option>Closest to you</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card-grid">
+                    <article class="charity-card">
+                        <div class="card-image" style="background-image:url('https://images.pexels.com/photos/6646917/pexels-photo-6646917.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="card-badge">
+                                <span class="dot"></span>
+                                Food · Local
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title-row">
+                                <div>
+                                    <div class="card-title">FoodShare Community Kitchen</div>
+                                    <div class="card-location">City Centre · 0.8 km</div>
+                                </div>
+                                <button class="save-pill" type="button" aria-label="Save charity">
+                                    <span class="heart" aria-hidden="true">♥</span> Save
+                                </button>
+                            </div>
+                            <p class="card-desc">
+                                Preparing and delivering hot meals and food parcels to families and older people every week.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Evening shifts</span>
+                                <span class="tag">Family-friendly</span>
+                            </div>
+                            <div class="card-cta-row">
+                                <div class="card-ctas">
+                                    <button class="btn-mini btn-main" type="button">Donate</button>
+                                    <button class="btn-mini" type="button">Volunteer</button>
+                                </div>
+                                <div class="card-mini-stat">
+                                    72% of this month’s goal
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="charity-card">
+                        <div class="card-image" style="background-image:url('https://images.pexels.com/photos/7675021/pexels-photo-7675021.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="card-badge">
+                                <span class="dot"></span>
+                                Youth · Skills
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title-row">
+                                <div>
+                                    <div class="card-title">Future Coders Club</div>
+                                    <div class="card-location">Online · regional</div>
+                                </div>
+                                <button class="save-pill" type="button" aria-label="Save charity">
+                                    <span class="heart" aria-hidden="true">♥</span> Save
+                                </button>
+                            </div>
+                            <p class="card-desc">
+                                Weekly coding sessions for teens who want to build apps that solve real community problems.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Mentoring</span>
+                                <span class="tag">STEM</span>
+                                <span class="tag">Online</span>
+                            </div>
+                            <div class="card-cta-row">
+                                <div class="card-ctas">
+                                    <button class="btn-mini btn-main" type="button">Volunteer</button>
+                                    <button class="btn-mini" type="button">Learn more</button>
+                                </div>
+                                <div class="card-mini-stat">
+                                    Needs 5 mentors this month
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="charity-card">
+                        <div class="card-image" style="background-image:url('https://images.pexels.com/photos/6646889/pexels-photo-6646889.jpeg?auto=compress&cs=tinysrgb&w=600');">
+                            <div class="card-badge">
+                                <span class="dot"></span>
+                                Environment · Clean-up
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title-row">
+                                <div>
+                                    <div class="card-title">RiverCare Green Crew</div>
+                                    <div class="card-location">Riverside Park · 3 km</div>
+                                </div>
+                                <button class="save-pill" type="button" aria-label="Save charity">
+                                    <span class="heart" aria-hidden="true">♥</span> Save
+                                </button>
+                            </div>
+                            <p class="card-desc">
+                                Monthly riverbank clean-ups and biodiversity surveys to protect local wildlife.
+                            </p>
+                            <div class="card-tags">
+                                <span class="tag">Outdoor</span>
+                                <span class="tag">Weekend</span>
+                            </div>
+                            <div class="card-cta-row">
+                                <div class="card-ctas">
+                                    <button class="btn-mini btn-main" type="button">Join event</button>
+                                    <button class="btn-mini" type="button">Donate</button>
+                                </div>
+                                <div class="card-mini-stat">
+                                    34 volunteers signed up
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <footer id="how">
+            Built as a concept for a Charity Connector Hub. Customise the text, images, and interactions to match your team’s ideas.
+        </footer>
+    </main>
+</body>
+</html>
+"""
