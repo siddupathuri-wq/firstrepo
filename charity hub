@@ -1,3 +1,5 @@
+from IPython.display import HTML
+
 html_content = """
 <!DOCTYPE html>
 <html lang="en">
@@ -562,13 +564,15 @@ html_content = """
             display: flex;
             flex-direction: column;
             position: relative;
-            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+            transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
         }
 
         .charity-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 16px 40px rgba(13, 23, 63, 0.12);
-            border-color: rgba(59, 108, 246, 0.4);
+            box-shadow: 0 18px 45px rgba(13, 23, 63, 0.2);
+            border-color: var(--primary);
+            background: var(--primary-dark);
+            color: #ffffff;
         }
 
         .card-image {
@@ -1009,6 +1013,32 @@ html_content = """
             Built as a concept for a Charity Connector Hub. Customise the text, images, and interactions to match your team’s ideas.
         </footer>
     </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('search');
+        const cardGrid = document.querySelector('.card-grid');
+        const charityCards = cardGrid.querySelectorAll('.charity-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = searchInput.value.toLowerCase();
+
+            charityCards.forEach(function(card) {
+                const title = card.querySelector('.card-title').textContent.toLowerCase();
+                const desc = card.querySelector('.card-desc').textContent.toLowerCase();
+                const tags = card.querySelector('.card-tags').textContent.toLowerCase();
+
+                if (title.includes(searchTerm) || desc.includes(searchTerm) || tags.includes(searchTerm)) {
+                    card.style.display = 'flex'; // Show the card
+                } else {
+                    card.style.display = 'none'; // Hide the card
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>
 """
+
+HTML(html_content)
